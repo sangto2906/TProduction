@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TProduction</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+    /* Design system: studio hardware aesthetic with accent red/pink signal color */
+    :root {
+      --bg-light: #f8f8f8;
+      --bg-dark: #1a1a1a;
+      --fg-light: #1a1a1a;
+      --fg-dark: #f8f8f8;
+      --accent: #ff3366;
+      --accent-dark: #ff2e4a;
+      --border-light: #e0e0e0;
+      --border-dark: #333333;
+      --panel-light: #ffffff;
+      --panel-dark: #252525;
+
+      --font-display: 'IBM Plex Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      background-color: var(--bg-light);
+      color: var(--fg-light);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        background-color: var(--bg-dark);
+        color: var(--fg-dark);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      background-color: var(--bg-dark);
+      color: var(--fg-dark);
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: var(--font-body);
+      margin: 0;
+      line-height: 1.6;
+      background-color: var(--bg-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        background-color: var(--bg-dark);
+      }
+    }
+
+    /* ===== Header & Navigation ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      background-color: var(--bg-light);
+      border-bottom: 1px solid var(--border-light);
+      backdrop-filter: blur(8px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header:not([data-theme="light"]) {
+        background-color: rgba(26, 26, 26, 0.95);
+        border-bottom-color: var(--border-dark);
+      }
+    }
+
+    :root[data-theme="dark"] header {
+      background-color: rgba(26, 26, 26, 0.95);
+      border-bottom-color: var(--border-dark);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--fg-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .logo:not([data-theme="light"]) {
+        color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .logo {
+      color: var(--fg-dark);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: var(--fg-light);
+      transition: color 0.2s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      nav a:not([data-theme="light"]) {
+        color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] nav a {
+      color: var(--fg-dark);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+    }
+
+    /* ===== Main Content ===== */
+    main {
+      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin: 0 0 1.5rem 0;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--fg-light);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      opacity: 0.8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .hero p:not([data-theme="light"]) {
+        color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .hero p {
+      color: var(--fg-dark);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .cta-button {
+      padding: 0.75rem 2rem;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.05em;
+    }
+
+    .cta-primary {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    .cta-primary:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-secondary {
+      background-color: transparent;
+      color: var(--fg-light);
+      border: 1px solid var(--fg-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cta-secondary:not([data-theme="light"]) {
+        color: var(--fg-dark);
+        border-color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .cta-secondary {
+      color: var(--fg-dark);
+      border-color: var(--fg-dark);
+    }
+
+    .cta-secondary:hover {
+      background-color: var(--fg-light);
+      color: var(--bg-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cta-secondary:hover:not([data-theme="light"]) {
+        background-color: var(--fg-dark);
+        color: var(--bg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .cta-secondary:hover {
+      background-color: var(--fg-dark);
+      color: var(--bg-dark);
+    }
+
+    /* ===== Products Section ===== */
+    .products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 4rem 0;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .products {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .product-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .product-preview img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 2px;
+      background-color: var(--panel-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .product-preview img:not([data-theme="light"]) {
+        background-color: var(--panel-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .product-preview img {
+      background-color: var(--panel-dark);
+    }
+
+    .product-info h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .product-info h2 .accent {
+      color: var(--accent);
+    }
+
+    .product-info p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.6;
+    }
+
+    .specs {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      background-color: var(--panel-light);
+      padding: 1.5rem;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .specs:not([data-theme="light"]) {
+        background-color: var(--panel-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .specs {
+      background-color: var(--panel-dark);
+    }
+
+    .specs div {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .specs div:not([data-theme="light"]) {
+        border-bottom-color: var(--border-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .specs div {
+      border-bottom-color: var(--border-dark);
+    }
+
+    .specs div:last-child {
+      border-bottom: none;
+    }
+
+    .specs-label {
+      color: var(--fg-light);
+      opacity: 0.7;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .specs-label:not([data-theme="light"]) {
+        color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .specs-label {
+      color: var(--fg-dark);
+    }
+
+    .specs-value {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .product-cta {
+      align-self: flex-start;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      margin-top: 6rem;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-light);
+      background-color: var(--bg-light);
+      font-size: 0.9rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      footer:not([data-theme="light"]) {
+        border-top-color: var(--border-dark);
+        background-color: var(--bg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] footer {
+      border-top-color: var(--border-dark);
+      background-color: var(--bg-dark);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    footer a {
+      color: var(--fg-light);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      footer a:not([data-theme="light"]) {
+        color: var(--fg-dark);
+      }
+    }
+
+    :root[data-theme="dark"] footer a {
+      color: var(--fg-dark);
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    .footer-section h3 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      opacity: 0.6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .copyright:not([data-theme="light"]) {
+        border-top-color: var(--border-dark);
+      }
+    }
+
+    :root[data-theme="dark"] .copyright {
+      border-top-color: var(--border-dark);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      main {
+        padding: 0 1.5rem;
+      }
+
+      .hero {
+        padding: 2.5rem 0;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .products {
+        gap: 2rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+      }
+
+      nav a {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="logo">TPRODUCTION</a>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/tpmidi">TPMidi</a></li>
+        <li><a href="/tpfader">TPFader</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/support">Support</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Music production hardware that responds to how you work</h1>
+      <p>Precision control surfaces for modern producers. Built to last, designed to disappear into your workflow.</p>
+      <div class="hero-cta">
+        <button class="cta-button cta-primary">Explore Products</button>
+        <a href="#products" class="cta-button cta-secondary">Learn More</a>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+      <!-- TPFader Product -->
+      <div class="product-preview">
+        <img src="assets/tpfader.jpg" alt="TPFader motorized fader controller with red accent knobs and sliders on dark textured surface" width="400" height="400">
+      </div>
+      <div class="product-info">
+        <h2>TP<span class="accent">Fader</span></h2>
+        <p>Three motorized 75mm faders with MIDI control for any DAW. Three tactile buttons for custom MIDI assignments. USB MIDI connectivity, plug and play. Map to any CC, Program Change, or DAW transport function. The tactile response of studio hardware in a compact form.</p>
+        <div class="specs">
+          <div>
+            <span class="specs-label">Faders</span>
+            <span class="specs-value">3 × 75mm motorized</span>
+          </div>
+          <div>
+            <span class="specs-label">Buttons</span>
+            <span class="specs-value">3 programmable</span>
+          </div>
+          <div>
+            <span class="specs-label">Mapping</span>
+            <span class="specs-value">CC, Program Change</span>
+          </div>
+          <div>
+            <span class="specs-label">Connection</span>
+            <span class="specs-value">USB MIDI</span>
+          </div>
+        </div>
+        <a href="/tpfader" class="cta-button cta-primary product-cta">View Details</a>
+      </div>
+
+      <!-- TPMidi Product -->
+      <div class="product-info">
+        <h2>TP<span class="accent">Midi</span></h2>
+        <p>MIDI control surface with four rotary encoders, three 75mm faders, and an OLED display. Assign Control Change, Program Change, and DAW transport controls (play, stop, undo) to any control. Live feedback on the OLED shows current parameter values and assignments. Fully compatible with any DAW that supports MIDI.</p>
+        <div class="specs">
+          <div>
+            <span class="specs-label">Encoders</span>
+            <span class="specs-value">4 rotary with display</span>
+          </div>
+          <div>
+            <span class="specs-label">Faders</span>
+            <span class="specs-value">3 × 75mm assignable</span>
+          </div>
+          <div>
+            <span class="specs-label">Mapping</span>
+            <span class="specs-value">CC, Program Change, Transport</span>
+          </div>
+          <div>
+            <span class="specs-label">Display</span>
+            <span class="specs-value">OLED parameter feedback</span>
+          </div>
+        </div>
+        <a href="/tpmidi" class="cta-button cta-primary product-cta">View Details</a>
+      </div>
+      <div class="product-preview">
+        <img src="assets/tpmidi1.jpg" alt="TPMidi keyboard controller with 88 weighted piano keys and four RGB-backlit pads with colorful icon graphics" width="400" height="400">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Products</h3>
+        <a href="/tpmidi">TPMidi</a>
+        <a href="/tpfader">TPFader</a>
+      </div>
+      <div class="footer-section">
+        <h3>Company</h3>
+        <a href="/about">About TProduction</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="footer-section">
+        <h3>Support</h3>
+        <a href="/support">Downloads & Drivers</a>
+        <a href="/support">Documentation</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2026 TProduction. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
