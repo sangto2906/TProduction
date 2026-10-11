@@ -3,11 +3,10 @@
   --fg: #1a1a1a;
   --fg-muted: #5e5e5e;
   --panel: #ffffff;
-  --rule: #d9d9d9;
+  --rule: #e0e0e0;
   --accent: #ff3366;
-  --accent-ink: #c4164a;
-  --cta-bg: #c4164a;
-  --cta-fg: #ffffff;
+  --accent-dark: #ff2e4a;
+  --accent-ink: #d91a4f;
   --font-display: 'IBM Plex Mono', ui-monospace, monospace;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
@@ -17,26 +16,22 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1a1a1a;
-    --fg: #f2f2f2;
+    --fg: #f8f8f8;
     --fg-muted: #a6a6a6;
     --panel: #252525;
-    --rule: #3a3a3a;
-    --accent-ink: #ff7a9a;
-    --cta-bg: #ff5c86;
-    --cta-fg: #1a1a1a;
+    --rule: #333333;
+    --accent-ink: #ff3366;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
   --bg: #1a1a1a;
-  --fg: #f2f2f2;
+  --fg: #f8f8f8;
   --fg-muted: #a6a6a6;
   --panel: #252525;
-  --rule: #3a3a3a;
-  --accent-ink: #ff7a9a;
-  --cta-bg: #ff5c86;
-  --cta-fg: #1a1a1a;
+  --rule: #333333;
+  --accent-ink: #ff3366;
   color-scheme: dark;
 }
 
@@ -90,6 +85,7 @@ html[data-lang="vi"] .en {
   z-index: 10;
   background: var(--bg);
   border-bottom: 1px solid var(--rule);
+  backdrop-filter: blur(8px);
 }
 
 .site-header .wrap {
@@ -98,13 +94,14 @@ html[data-lang="vi"] .en {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  padding-block: 1rem;
+  padding-block: 1.5rem;
 }
 
 .logo {
   font-family: var(--font-display);
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   color: var(--fg);
   text-decoration: none;
 }
@@ -120,11 +117,12 @@ html[data-lang="vi"] .en {
 .nav a {
   color: var(--fg);
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .nav a:hover,
 .nav a[aria-current="page"] {
-  color: var(--accent-ink);
+  color: var(--accent);
 }
 
 .lang-toggle {
@@ -144,11 +142,11 @@ html[data-lang="vi"] .en {
 html[data-lang="en"] .lang-toggle [data-opt="en"],
 html[data-lang="vi"] .lang-toggle [data-opt="vi"] {
   opacity: 1;
-  color: var(--accent-ink);
+  color: var(--accent);
 }
 
 main {
-  padding-block: 3rem 4rem;
+  padding-block: 2rem 4rem;
 }
 
 h1,
@@ -161,11 +159,11 @@ h2 {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
 }
 
 h2 {
-  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
 }
 
 p {
@@ -173,15 +171,16 @@ p {
 }
 
 .lead {
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   max-width: 60ch;
   margin-top: 1.25rem;
+  opacity: 0.85;
 }
 
 .eyebrow {
   font-family: var(--font-code);
   font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg-muted);
   margin-bottom: 0.75rem;
@@ -192,17 +191,29 @@ p {
 }
 
 .hero {
-  padding-block: 2rem 1rem;
+  padding-block: 4rem 0;
+  text-align: center;
 }
 
 .hero h1 {
-  max-width: 20ch;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.hero .lead {
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: 0;
 }
 
 .split {
   display: grid;
-  gap: 2rem;
+  gap: 3rem;
   align-items: center;
+}
+
+.product {
+  padding-block: 4rem;
 }
 
 .product-media {
@@ -216,39 +227,52 @@ p {
   object-fit: contain;
 }
 
-.product {
-  padding-block: 3rem;
-  border-top: 1px solid var(--rule);
+.product-copy h2 {
+  margin-bottom: 1rem;
 }
 
-.product-copy h2 {
-  margin-bottom: 0.75rem;
+.product-copy h2 .accent {
+  color: var(--accent);
 }
 
 .specs {
-  margin: 1.5rem 0 0;
+  margin: 0 0 1.5rem;
+  padding: 1.5rem;
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
   font-family: var(--font-code);
-  font-size: 0.875rem;
-  border-top: 1px solid var(--fg);
+  font-size: 0.85rem;
 }
 
 .specs div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
-  padding: 0.65rem 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid var(--rule);
 }
 
+.specs div:last-child {
+  border-bottom: none;
+}
+
 .specs dt {
-  color: var(--fg-muted);
+  opacity: 0.7;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 0.8rem;
+  letter-spacing: 0.05em;
 }
 
 .specs dd {
   margin: 0;
+  text-align: right;
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.specs-page {
+  max-width: 720px;
 }
 
 .todo {
@@ -257,27 +281,31 @@ p {
   padding: 0 0.3rem;
   font-family: var(--font-code);
   font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .button {
   display: inline-block;
   margin-top: 1.5rem;
-  padding: 0.8rem 1.3rem;
-  background: var(--cta-bg);
-  color: var(--cta-fg);
+  padding: 0.75rem 2rem;
+  background: var(--accent);
+  color: #ffffff;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.9rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-decoration: none;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .button:hover {
-  filter: brightness(1.08);
+  background: var(--accent-dark);
+  transform: translateY(-2px);
 }
 
 .figure {
-  margin: 3rem 0 0;
+  margin: 3rem auto 0;
+  max-width: 720px;
 }
 
 .figure figcaption {
@@ -288,8 +316,9 @@ p {
 }
 
 .site-footer {
+  margin-top: 4rem;
+  padding-block: 3rem;
   border-top: 1px solid var(--rule);
-  padding-block: 2.5rem;
   font-size: 0.9rem;
 }
 
@@ -300,39 +329,60 @@ p {
 }
 
 .site-footer h2 {
-  font-family: var(--font-code);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
   text-transform: uppercase;
-  color: var(--fg-muted);
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
 }
 
 .site-footer a {
   display: block;
   color: var(--fg);
   text-decoration: none;
-  padding-block: 0.2rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
 }
 
 .site-footer a:hover {
-  color: var(--accent-ink);
+  color: var(--accent);
 }
 
 .copyright {
   margin-top: 2rem;
-  color: var(--fg-muted);
-  font-size: 0.8rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  opacity: 0.6;
+  font-size: 0.85rem;
 }
 
 @media (min-width: 760px) {
   .split {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 4rem;
   }
 
   .split.flip > :first-child {
     order: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header .wrap {
+    padding-block: 1rem;
+  }
+
+  .hero {
+    padding-block: 2.5rem 0;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .product {
+    padding-block: 2.5rem;
   }
 }
 
