@@ -1,590 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>TPMidi — Music Production Hardware</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-  <style>
-    :root {
-      --bg-light: #f8f8f8;
-      --bg-dark: #1a1a1a;
-      --fg-light: #1a1a1a;
-      --fg-dark: #f8f8f8;
-      --accent: #ff3366;
-      --accent-dark: #ff2e4a;
-      --border-light: #e0e0e0;
-      --border-dark: #333333;
-      --panel-light: #ffffff;
-      --panel-dark: #252525;
-      --oled-bg: #000000;
-      --oled-fg: #00ff00;
-
-      --font-display: 'IBM Plex Mono', monospace;
-      --font-body: 'Inter', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
-
-      background-color: var(--bg-light);
-      color: var(--fg-light);
-      color-scheme: light;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        background-color: var(--bg-dark);
-        color: var(--fg-dark);
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--fg-dark);
-      color-scheme: dark;
-    }
-
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1.5rem 2rem;
-      background-color: var(--bg-light);
-      border-bottom: 1px solid var(--border-light);
-      backdrop-filter: blur(8px);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      header:not([data-theme="light"]) {
-        background-color: rgba(26, 26, 26, 0.95);
-        border-bottom-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] header {
-      background-color: rgba(26, 26, 26, 0.95);
-      border-bottom-color: var(--border-dark);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--fg-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .logo:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .logo {
-      color: var(--fg-dark);
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 2rem;
-    }
-
-    nav a {
-      font-size: 0.9rem;
-      text-decoration: none;
-      color: var(--fg-light);
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      nav a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] nav a {
-      color: var(--fg-dark);
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-    }
-
-    /* Main Content */
-    main {
-      padding: 0 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Hero Section */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      padding: 4rem 0;
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    .hero-image {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      border-radius: 2px;
-      background-color: var(--panel-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .hero-image:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .hero-image {
-      background-color: var(--panel-dark);
-    }
-
-    .hero-text h1 {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0 0 1.5rem 0;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    .hero-text p {
-      font-size: 1.1rem;
-      opacity: 0.85;
-      margin: 0 0 2rem 0;
-      line-height: 1.7;
-    }
-
-    .cta-button {
-      padding: 0.75rem 2rem;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-      letter-spacing: 0.05em;
-      margin-right: 1rem;
-    }
-
-    .cta-primary {
-      background-color: var(--accent);
-      color: white;
-    }
-
-    .cta-primary:hover {
-      background-color: var(--accent-dark);
-      transform: translateY(-2px);
-    }
-
-    /* Features Section */
-    .features {
-      padding: 4rem 0;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .features:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .features {
-      border-top-color: var(--border-dark);
-    }
-
-    .features h2 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin: 0 0 3rem 0;
-      letter-spacing: -0.02em;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-item {
-      padding: 2rem;
-      background-color: var(--panel-light);
-      border-left: 3px solid var(--accent);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .feature-item:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .feature-item {
-      background-color: var(--panel-dark);
-    }
-
-    .feature-item h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin: 0 0 1rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .feature-item p {
-      font-size: 0.95rem;
-      opacity: 0.8;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* Specifications */
-    .specifications {
-      padding: 4rem 0;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .specifications:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .specifications {
-      border-top-color: var(--border-dark);
-    }
-
-    .specifications h2 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin: 0 0 2rem 0;
-    }
-
-    .specs-table {
-      font-family: var(--font-code);
-      font-size: 0.9rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .specs-table tr {
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .specs-table tr:not([data-theme="light"]) {
-        border-bottom-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .specs-table tr {
-      border-bottom-color: var(--border-dark);
-    }
-
-    .specs-table td {
-      padding: 1.2rem 0;
-      vertical-align: top;
-    }
-
-    .specs-label {
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      opacity: 0.7;
-      width: 30%;
-    }
-
-    .specs-value {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .detail-image {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      border-radius: 2px;
-      background-color: var(--panel-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .detail-image:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .detail-image {
-      background-color: var(--panel-dark);
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 6rem;
-      padding: 3rem 2rem;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer {
-      border-top-color: var(--border-dark);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    footer a {
-      color: var(--fg-light);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.5rem;
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer a {
-      color: var(--fg-dark);
-    }
-
-    footer a:hover {
-      color: var(--accent);
-    }
-
-    .footer-section h3 {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin: 0 0 1rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-light);
-      opacity: 0.6;
-      font-size: 0.85rem;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .copyright:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .copyright {
-      border-top-color: var(--border-dark);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
-
-      main {
-        padding: 0 1.5rem;
-      }
-
-      .hero {
-        padding: 2rem 0;
-      }
-
-      .hero-text h1 {
-        font-size: 1.75rem;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TPMidi | TProduction</title>
+  <meta name="description" content="TPMidi: four encoders, three 75 mm faders and an OLED screen for MIDI control.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/site.js" defer></script>
 </head>
 <body>
-  <header>
-    <nav>
+  <header class="site-header">
+    <div class="wrap">
       <a href="/" class="logo">TPRODUCTION</a>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tpmidi">TPMidi</a></li>
-        <li><a href="/tpfader">TPFader</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/support">Support</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
+      <nav class="nav" aria-label="Main">
+        <a href="/tpmidi" aria-current="page">TPMidi</a>
+        <a href="/tpfader">TPFader</a>
+        <a href="/about"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+        <a href="/support"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        <button type="button" class="lang-toggle" data-lang-toggle>
+          <span data-opt="en">EN</span> / <span data-opt="vi">VI</span>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
+  <main class="wrap">
+    <section class="split">
+      <figure class="product-media">
+        <img src="../assets/tpmidi1.jpg" width="1233" height="1280"
+             alt="TPMidi on a red wooden desk in front of a keyboard: three black faders and four black encoders with red tops."
+             data-alt-vi="TPMidi trên bàn gỗ sơn đỏ, đặt trước một đàn phím: ba fader đen và bốn encoder đen có nắp đỏ.">
+      </figure>
       <div>
-        <img src="../assets/tpmidi1.jpg" alt="TPMidi keyboard with 88 weighted piano keys and RGB-backlit pads with colorful icon graphics" class="hero-image" width="500" height="500">
-      </div>
-      <div class="hero-text">
+        <p class="eyebrow"><span class="en">Control surface</span><span class="vi">Bề mặt điều khiển</span></p>
         <h1>TPMidi</h1>
-        <p>MIDI control surface with four rotary encoders, three 75mm faders, and an OLED display. Map each control to CC parameters, Program Changes, or DAW transport functions. See what you're controlling on the live OLED readout. Works with every major DAW.</p>
-        <button class="cta-button cta-primary">Get Notified</button>
+        <p class="lead">
+          <span class="en">Four encoders, three 75 mm faders and an OLED screen. Faders and encoders can be assigned to CC and Program Change. Buttons can also send transport commands such as play, stop and undo. The screen shows each control's value and assignment.</span>
+          <span class="vi">Bốn encoder, ba fader 75 mm và màn hình OLED. Fader và encoder gán được CC và Program Change. Nút nhấn còn gửi được lệnh transport như play, stop và undo. Màn hình hiển thị giá trị và tham số gán của từng điều khiển.</span>
+        </p>
+        <a class="button" href="/contact"><span class="en">Ask about price and availability</span><span class="vi">Hỏi về giá và tình trạng hàng</span></a>
       </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-      <h2>Why TPMidi</h2>
-      <div class="feature-grid">
-        <div class="feature-item">
-          <h3>OLED Parameter Display</h3>
-          <p>See parameter names and values in real-time. Know exactly which CC or control you're adjusting.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Four Encoders + Three Faders</h3>
-          <p>Seven independent MIDI controls with full mapping. Rotate encoders for continuous values, use faders for mixer-style control.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Full MIDI Mapping</h3>
-          <p>Assign CC (0–127), Program Change, and transport controls (play, stop, undo, record) to any hardware control.</p>
-        </div>
-        <div class="feature-item">
-          <h3>DAW Compatibility</h3>
-          <p>Works with Ableton, Logic, Reaper, Studio One, Bitwig, FL Studio, and any MIDI-capable software.</p>
-        </div>
-        <div class="feature-item">
-          <h3>Compact Studio Fit</h3>
-          <p>Designed to sit comfortably on any desk next to keyboard or mixer. Quick access to your most-used parameters.</p>
-        </div>
-        <div class="feature-item">
-          <h3>USB Plug & Play</h3>
-          <p>Class-compliant MIDI over USB. No drivers needed on macOS, Windows, or Linux.</p>
-        </div>
-      </div>
+    <section class="figure" aria-label="Top panel">
+      <img src="../assets/tpmidi2.jpg" width="999" height="1280" loading="lazy"
+           alt="Close-up of the TPMidi top panel: three faders, four encoders with red tops and a small OLED screen."
+           data-alt-vi="Cận cảnh mặt trên TPMidi: ba fader, bốn encoder có nắp đỏ và một màn hình OLED nhỏ.">
+      <figcaption><span class="en">Top panel: three faders, four encoders and the OLED screen.</span><span class="vi">Mặt trên: ba fader, bốn encoder và màn hình OLED.</span></figcaption>
     </section>
 
-    <!-- Specifications -->
-    <section class="specifications">
-      <h2>Specifications</h2>
-      <table class="specs-table">
-        <tr>
-          <td class="specs-label">Encoders</td>
-          <td class="specs-value">4 rotary encoders with tactile detents</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Faders</td>
-          <td class="specs-value">3 × 75mm linear assignable faders</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Display</td>
-          <td class="specs-value">OLED 128×64 character display</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Resolution</td>
-          <td class="specs-value">14-bit MIDI (CC and Program Change)</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Update Rate</td>
-          <td class="specs-value">7ms display refresh, &lt; 5ms control to MIDI</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Mapping Options</td>
-          <td class="specs-value">CC, Program Change, Transport (Play/Stop/Undo/Record)</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Connection</td>
-          <td class="specs-value">USB-C, class compliant MIDI</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Compatibility</td>
-          <td class="specs-value">macOS 10.5+, Windows 7+, Linux</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Dimensions</td>
-          <td class="specs-value">320mm W × 140mm D × 70mm H</td>
-        </tr>
-        <tr>
-          <td class="specs-label">Weight</td>
-          <td class="specs-value">680g</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Detail Image -->
-    <section>
-      <img src="../assets/tpmidi2.jpg" alt="TPMidi detail view showing four rotary encoders with red indicators and faders" class="detail-image" width="600" height="400">
+    <section class="product" aria-labelledby="specs-heading">
+      <h2 id="specs-heading"><span class="en">Specifications</span><span class="vi">Thông số</span></h2>
+      <dl class="specs">
+        <div>
+          <dt><span class="en">Encoders</span><span class="vi">Encoder</span></dt>
+          <dd>4</dd>
+        </div>
+        <div>
+          <dt><span class="en">Faders</span><span class="vi">Fader</span></dt>
+          <dd>3 × 75 mm</dd>
+        </div>
+        <div>
+          <dt><span class="en">Buttons</span><span class="vi">Nút nhấn</span></dt>
+          <dd><span class="todo"><span class="en">TODO: number of buttons</span><span class="vi">TODO: số lượng nút nhấn</span></span></dd>
+        </div>
+        <div>
+          <dt><span class="en">Display</span><span class="vi">Màn hình</span></dt>
+          <dd>OLED</dd>
+        </div>
+        <div>
+          <dt><span class="en">Mapping</span><span class="vi">Gán điều khiển</span></dt>
+          <dd><span class="en">CC, Program Change; buttons also send transport (play, stop, undo)</span><span class="vi">CC, Program Change; nút nhấn còn gửi transport (play, stop, undo)</span></dd>
+        </div>
+        <div>
+          <dt><span class="en">Software</span><span class="vi">Phần mềm</span></dt>
+          <dd><span class="en">Works with DAWs that support MIDI control</span><span class="vi">Tương thích các DAW hỗ trợ điều khiển MIDI</span></dd>
+        </div>
+        <div>
+          <dt><span class="en">Connection</span><span class="vi">Kết nối</span></dt>
+          <dd><span class="todo"><span class="en">TODO: connection type</span><span class="vi">TODO: loại kết nối</span></span></dd>
+        </div>
+        <div>
+          <dt><span class="en">Dimensions</span><span class="vi">Kích thước</span></dt>
+          <dd><span class="todo"><span class="en">TODO: dimensions</span><span class="vi">TODO: kích thước</span></span></dd>
+        </div>
+        <div>
+          <dt><span class="en">Price</span><span class="vi">Giá</span></dt>
+          <dd><span class="en">TBA</span><span class="vi">Chưa công bố</span></dd>
+        </div>
+      </dl>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Products</h3>
-        <a href="/tpmidi">TPMidi</a>
-        <a href="/tpfader">TPFader</a>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h2><span class="en">Products</span><span class="vi">Sản phẩm</span></h2>
+          <a href="/tpmidi">TPMidi</a>
+          <a href="/tpfader">TPFader</a>
+        </div>
+        <div>
+          <h2><span class="en">Company</span><span class="vi">Công ty</span></h2>
+          <a href="/about"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+          <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        </div>
+        <div>
+          <h2><span class="en">Support</span><span class="vi">Hỗ trợ</span></h2>
+          <a href="/support"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        </div>
       </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <a href="/about">About TProduction</a>
-        <a href="/contact">Contact</a>
-      </div>
-      <div class="footer-section">
-        <h3>Support</h3>
-        <a href="/support">Downloads & Drivers</a>
-        <a href="/support">Documentation</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2026 TProduction. All rights reserved.</p>
+      <p class="copyright">&copy; 2026 TProduction</p>
     </div>
   </footer>
-
 </body>
 </html>

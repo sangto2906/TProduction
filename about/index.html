@@ -1,378 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>About TProduction</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap">
-  <style>
-    :root {
-      --bg-light: #f8f8f8;
-      --bg-dark: #1a1a1a;
-      --fg-light: #1a1a1a;
-      --fg-dark: #f8f8f8;
-      --accent: #ff3366;
-      --border-light: #e0e0e0;
-      --border-dark: #333333;
-      --panel-light: #ffffff;
-      --panel-dark: #252525;
-      --font-display: 'IBM Plex Mono', monospace;
-      --font-body: 'Inter', sans-serif;
-
-      background-color: var(--bg-light);
-      color: var(--fg-light);
-      color-scheme: light;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        background-color: var(--bg-dark);
-        color: var(--fg-dark);
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--fg-dark);
-      color-scheme: dark;
-    }
-
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1.5rem 2rem;
-      background-color: var(--bg-light);
-      border-bottom: 1px solid var(--border-light);
-      backdrop-filter: blur(8px);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      header:not([data-theme="light"]) {
-        background-color: rgba(26, 26, 26, 0.95);
-        border-bottom-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] header {
-      background-color: rgba(26, 26, 26, 0.95);
-      border-bottom-color: var(--border-dark);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--fg-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .logo:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .logo {
-      color: var(--fg-dark);
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 2rem;
-    }
-
-    nav a {
-      font-size: 0.9rem;
-      text-decoration: none;
-      color: var(--fg-light);
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      nav a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] nav a {
-      color: var(--fg-dark);
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-    }
-
-    main {
-      padding: 0 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      section:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] section {
-      border-top-color: var(--border-dark);
-    }
-
-    h1, h2 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 1.5rem 0;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-    }
-
-    p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.7;
-      margin: 0 0 1.5rem 0;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 3rem 2rem;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer {
-      border-top-color: var(--border-dark);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    footer a {
-      color: var(--fg-light);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.5rem;
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer a {
-      color: var(--fg-dark);
-    }
-
-    footer a:hover {
-      color: var(--accent);
-    }
-
-    .footer-section h3 {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin: 0 0 1rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-light);
-      opacity: 0.6;
-      font-size: 0.85rem;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .copyright:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .copyright {
-      border-top-color: var(--border-dark);
-    }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .value-card {
-      padding: 2rem;
-      background-color: var(--panel-light);
-      border-left: 3px solid var(--accent);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .value-card:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .value-card {
-      background-color: var(--panel-dark);
-    }
-
-    .value-card h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0 0 0.75rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .value-card p {
-      margin: 0;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
-
-      main {
-        padding: 0 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.75rem;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About | TProduction</title>
+  <meta name="description" content="About TProduction, a maker of MIDI control hardware for music production.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/site.js" defer></script>
 </head>
 <body>
-  <header>
-    <nav>
+  <header class="site-header">
+    <div class="wrap">
       <a href="/" class="logo">TPRODUCTION</a>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tpmidi">TPMidi</a></li>
-        <li><a href="/tpfader">TPFader</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/support">Support</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
+      <nav class="nav" aria-label="Main">
+        <a href="/tpmidi">TPMidi</a>
+        <a href="/tpfader">TPFader</a>
+        <a href="/about" aria-current="page"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+        <a href="/support"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        <button type="button" class="lang-toggle" data-lang-toggle>
+          <span data-opt="en">EN</span> / <span data-opt="vi">VI</span>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h1>About TProduction</h1>
-      <p>We design and build MIDI control hardware for music producers. Every product is designed with one goal: get out of your way. No bloat, no unnecessary features—just precise, responsive controls that work with any DAW.</p>
-      <p>Our hardware is built around the core belief that the best tool is one that disappears into the creative process. When you're focused on your music, your gear should respond instantly and reliably. That's why we use studio-grade components, test extensively, and maintain minimal but complete feature sets.</p>
-    </section>
-
-    <section>
-      <h2>Our Values</h2>
-      <div class="values-grid">
-        <div class="value-card">
-          <h3>Precision</h3>
-          <p>Every control responds exactly as expected, with minimal latency and zero drift. Professional-grade components throughout.</p>
-        </div>
-        <div class="value-card">
-          <h3>Simplicity</h3>
-          <p>No screens, confusing menus, or mandatory software. Plug in, map, and create. Class-compliant MIDI works everywhere.</p>
-        </div>
-        <div class="value-card">
-          <h3>Reliability</h3>
-          <p>Built to last. Designed for daily studio use and small live rigs. No compromises on component quality.</p>
-        </div>
-        <div class="value-card">
-          <h3>Compatibility</h3>
-          <p>Works with every major DAW on macOS, Windows, and Linux. No special drivers needed. USB MIDI is the standard.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Why Hardware?</h2>
-      <p>Software control is fine, but there's something irreplaceable about tactile feedback. A fader you can grab. A button you can feel. The muscle memory that builds over months of use. Hardware doesn't replace your software—it augments it, giving you faster access to the parameters you change most.</p>
-      <p>TPMidi and TPFader are designed to sit next to your keyboard, ready when you need them. They're compact enough for laptop studios, but precise enough for professional mixing and sound design work.</p>
-    </section>
-
-    <section>
-      <h2>Get in Touch</h2>
-      <p>Have a question about TPFader or TPMidi? Want to request a feature or report an issue? Head to our <a href="/contact" style="color: var(--accent); text-decoration: none; font-weight: 600;">contact page</a> or email us directly.</p>
+  <main class="wrap">
+    <section class="prose">
+      <h1><span class="en">About TProduction</span><span class="vi">Giới thiệu TProduction</span></h1>
+      <p class="lead">
+        <span class="en">TProduction makes MIDI control hardware for music production. The current range is TPFader and TPMidi.</span>
+        <span class="vi">TProduction sản xuất phần cứng điều khiển MIDI cho sản xuất âm nhạc. Hiện tại, dòng sản phẩm gồm TPFader và TPMidi.</span>
+      </p>
+      <p>
+        <span class="todo"><span class="en">TODO: company background, location and contact people.</span><span class="vi">TODO: lịch sử công ty, địa điểm và người liên hệ.</span></span>
+      </p>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Products</h3>
-        <a href="/tpmidi">TPMidi</a>
-        <a href="/tpfader">TPFader</a>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h2><span class="en">Products</span><span class="vi">Sản phẩm</span></h2>
+          <a href="/tpmidi">TPMidi</a>
+          <a href="/tpfader">TPFader</a>
+        </div>
+        <div>
+          <h2><span class="en">Company</span><span class="vi">Công ty</span></h2>
+          <a href="/about"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+          <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        </div>
+        <div>
+          <h2><span class="en">Support</span><span class="vi">Hỗ trợ</span></h2>
+          <a href="/support"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        </div>
       </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <a href="/about">About TProduction</a>
-        <a href="/contact">Contact</a>
-      </div>
-      <div class="footer-section">
-        <h3>Support</h3>
-        <a href="/support">Downloads & Drivers</a>
-        <a href="/support">Documentation</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2026 TProduction. All rights reserved.</p>
+      <p class="copyright">&copy; 2026 TProduction</p>
     </div>
   </footer>
 </body>

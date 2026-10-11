@@ -1,469 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Support & Downloads</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-  <style>
-    :root {
-      --bg-light: #f8f8f8;
-      --bg-dark: #1a1a1a;
-      --fg-light: #1a1a1a;
-      --fg-dark: #f8f8f8;
-      --accent: #ff3366;
-      --border-light: #e0e0e0;
-      --border-dark: #333333;
-      --panel-light: #ffffff;
-      --panel-dark: #252525;
-      --font-display: 'IBM Plex Mono', monospace;
-      --font-body: 'Inter', sans-serif;
-      --font-code: 'JetBrains Mono', monospace;
-
-      background-color: var(--bg-light);
-      color: var(--fg-light);
-      color-scheme: light;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        background-color: var(--bg-dark);
-        color: var(--fg-dark);
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--fg-dark);
-      color-scheme: dark;
-    }
-
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1.5rem 2rem;
-      background-color: var(--bg-light);
-      border-bottom: 1px solid var(--border-light);
-      backdrop-filter: blur(8px);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      header:not([data-theme="light"]) {
-        background-color: rgba(26, 26, 26, 0.95);
-        border-bottom-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] header {
-      background-color: rgba(26, 26, 26, 0.95);
-      border-bottom-color: var(--border-dark);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--fg-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .logo:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .logo {
-      color: var(--fg-dark);
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 2rem;
-    }
-
-    nav a {
-      font-size: 0.9rem;
-      text-decoration: none;
-      color: var(--fg-light);
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      nav a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] nav a {
-      color: var(--fg-dark);
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-    }
-
-    main {
-      padding: 0 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      section:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] section {
-      border-top-color: var(--border-dark);
-    }
-
-    h1, h2 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 1.5rem 0;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-    }
-
-    p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.7;
-      margin: 0 0 1.5rem 0;
-    }
-
-    .download-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .download-card {
-      padding: 2rem;
-      background-color: var(--panel-light);
-      border-left: 3px solid var(--accent);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .download-card:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .download-card {
-      background-color: var(--panel-dark);
-    }
-
-    .download-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin: 0 0 0.5rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .download-card p {
-      margin: 0 0 1rem 0;
-    }
-
-    .download-btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      font-weight: 600;
-      background-color: var(--accent);
-      color: white;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      letter-spacing: 0.05em;
-      transition: all 0.2s;
-    }
-
-    .download-btn:hover {
-      background-color: #ff2e4a;
-      transform: translateY(-2px);
-    }
-
-    .faq {
-      padding: 2rem;
-      background-color: var(--panel-light);
-      margin-bottom: 1.5rem;
-      border-left: 3px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .faq:not([data-theme="light"]) {
-        background-color: var(--panel-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .faq {
-      background-color: var(--panel-dark);
-    }
-
-    .faq h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0 0 0.75rem 0;
-    }
-
-    .faq p {
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding: 3rem 2rem;
-      border-top: 1px solid var(--border-light);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer {
-      border-top-color: var(--border-dark);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    footer a {
-      color: var(--fg-light);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.5rem;
-      transition: color 0.2s;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      footer a:not([data-theme="light"]) {
-        color: var(--fg-dark);
-      }
-    }
-
-    :root[data-theme="dark"] footer a {
-      color: var(--fg-dark);
-    }
-
-    footer a:hover {
-      color: var(--accent);
-    }
-
-    .footer-section h3 {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin: 0 0 1rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-light);
-      opacity: 0.6;
-      font-size: 0.85rem;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .copyright:not([data-theme="light"]) {
-        border-top-color: var(--border-dark);
-      }
-    }
-
-    :root[data-theme="dark"] .copyright {
-      border-top-color: var(--border-dark);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 1rem 1.5rem;
-      }
-
-      main {
-        padding: 0 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.75rem;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support | TProduction</title>
+  <meta name="description" content="Support for TPFader and TPMidi from TProduction.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/site.js" defer></script>
 </head>
 <body>
-  <header>
-    <nav>
+  <header class="site-header">
+    <div class="wrap">
       <a href="/" class="logo">TPRODUCTION</a>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tpmidi">TPMidi</a></li>
-        <li><a href="/tpfader">TPFader</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/support">Support</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
+      <nav class="nav" aria-label="Main">
+        <a href="/tpmidi">TPMidi</a>
+        <a href="/tpfader">TPFader</a>
+        <a href="/about"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+        <a href="/support" aria-current="page"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        <button type="button" class="lang-toggle" data-lang-toggle>
+          <span data-opt="en">EN</span> / <span data-opt="vi">VI</span>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h1>Support & Downloads</h1>
-      <p>Find firmware updates, drivers, documentation, and FAQs for TPMidi and TPFader.</p>
-    </section>
-
-    <section>
-      <h2>Downloads</h2>
-      <div class="download-grid">
-        <div class="download-card">
-          <h3>TPFader Firmware</h3>
-          <p>Latest stable firmware with MIDI improvements and bug fixes.</p>
-          <p style="font-family: var(--font-code); font-size: 0.85rem; opacity: 0.6; margin: 0;">v1.2.0 · Nov 2025</p>
-          <a href="#" class="download-btn">Download</a>
-        </div>
-        <div class="download-card">
-          <h3>TPMidi Firmware</h3>
-          <p>Latest firmware with OLED display optimization and encoder updates.</p>
-          <p style="font-family: var(--font-code); font-size: 0.85rem; opacity: 0.6; margin: 0;">v1.3.1 · Dec 2025</p>
-          <a href="#" class="download-btn">Download</a>
-        </div>
-        <div class="download-card">
-          <h3>User Manual (PDF)</h3>
-          <p>Complete setup guide and MIDI mapping reference for both products.</p>
-          <p style="font-family: var(--font-code); font-size: 0.85rem; opacity: 0.6; margin: 0;">v1.0 · 2MB</p>
-          <a href="#" class="download-btn">Download</a>
-        </div>
-        <div class="download-card">
-          <h3>MIDI Mapping Templates</h3>
-          <p>Pre-configured mappings for popular DAWs: Ableton, Logic, Reaper.</p>
-          <p style="font-family: var(--font-code); font-size: 0.85rem; opacity: 0.6; margin: 0;">v2.1 · 500KB</p>
-          <a href="#" class="download-btn">Download</a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Drivers & Compatibility</h2>
-      <p>Both TPMidi and TPFader use class-compliant USB MIDI. No drivers needed on macOS, Windows 7+, or Linux.</p>
-      <p><strong>macOS:</strong> Works out of the box on 10.5 and later. Audio MIDI Setup recognized immediately.</p>
-      <p><strong>Windows:</strong> Plug in and use. Windows 7 and later have native MIDI support.</p>
-      <p><strong>Linux:</strong> ALSA and PulseAudio fully supported. Test with <code style="background: var(--panel-light); padding: 0.25rem 0.5rem; border-radius: 2px; font-family: var(--font-code); font-size: 0.9rem;">aconnect -o</code> to verify connection.</p>
-    </section>
-
-    <section>
-      <h2>Frequently Asked Questions</h2>
-
-      <div class="faq">
-        <h3>How do I remap controls?</h3>
-        <p>Use your DAW's native MIDI learning. Open the DAW's controller settings, click "Learn", and move a TPFader or TPMidi control. The control will automatically map to that parameter. No extra software required.</p>
-      </div>
-
-      <div class="faq">
-        <h3>Can I use TPFader and TPMidi together?</h3>
-        <p>Yes. Both units connect via separate USB ports and appear as distinct MIDI controllers to your DAW. You can map them to different channels and use them simultaneously.</p>
-      </div>
-
-      <div class="faq">
-        <h3>Is there a firmware update process?</h3>
-        <p>Updates are simple. Download the firmware file, connect the unit via USB, and follow the update tool instructions. No special technical knowledge required. Updates are optional; the original firmware is stable.</p>
-      </div>
-
-      <div class="faq">
-        <h3>What DAWs are supported?</h3>
-        <p>All DAWs that support standard MIDI control: Ableton Live, Logic Pro, Pro Tools, Reaper, Studio One, Bitwig, FL Studio, Cubase, and more. We provide mapping templates for the most popular ones.</p>
-      </div>
-
-      <div class="faq">
-        <h3>How do I troubleshoot connection issues?</h3>
-        <p>First, try a different USB cable and port. Then check Audio MIDI Setup (macOS) or Device Manager (Windows) to see if the unit appears. If problems persist, contact support with your OS and DAW version.</p>
-      </div>
-
-      <div class="faq">
-        <h3>Are TPFader and TPMidi hackable / modifiable?</h3>
-        <p>Both units are designed to be reliable rather than modular. We provide stable firmware and full MIDI documentation. For advanced needs, reach out to us—we may have other solutions.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>Still Have Questions?</h2>
-      <p>Visit our <a href="/contact" style="color: var(--accent); text-decoration: none; font-weight: 600;">contact page</a> to reach out directly. We typically respond within 24 hours.</p>
+  <main class="wrap">
+    <section class="prose">
+      <h1><span class="en">Support</span><span class="vi">Hỗ trợ</span></h1>
+      <p class="lead">
+        <span class="todo"><span class="en">TODO: manuals, firmware files and MIDI mapping guides, once they are ready.</span><span class="vi">TODO: hướng dẫn sử dụng, file firmware và hướng dẫn gán MIDI, khi đã sẵn sàng.</span></span>
+      </p>
+      <p>
+        <span class="en">For other questions, see the <a href="/contact">contact page</a>.</span>
+        <span class="vi">Với câu hỏi khác, xem trang <a href="/contact">Liên hệ</a>.</span>
+      </p>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Products</h3>
-        <a href="/tpmidi">TPMidi</a>
-        <a href="/tpfader">TPFader</a>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h2><span class="en">Products</span><span class="vi">Sản phẩm</span></h2>
+          <a href="/tpmidi">TPMidi</a>
+          <a href="/tpfader">TPFader</a>
+        </div>
+        <div>
+          <h2><span class="en">Company</span><span class="vi">Công ty</span></h2>
+          <a href="/about"><span class="en">About</span><span class="vi">Giới thiệu</span></a>
+          <a href="/contact"><span class="en">Contact</span><span class="vi">Liên hệ</span></a>
+        </div>
+        <div>
+          <h2><span class="en">Support</span><span class="vi">Hỗ trợ</span></h2>
+          <a href="/support"><span class="en">Support</span><span class="vi">Hỗ trợ</span></a>
+        </div>
       </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <a href="/about">About TProduction</a>
-        <a href="/contact">Contact</a>
-      </div>
-      <div class="footer-section">
-        <h3>Support</h3>
-        <a href="/support">Downloads & Drivers</a>
-        <a href="/support">Documentation</a>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2026 TProduction. All rights reserved.</p>
+      <p class="copyright">&copy; 2026 TProduction</p>
     </div>
   </footer>
 </body>
